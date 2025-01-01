@@ -46,7 +46,7 @@ class SurfaceMaker:
 		# bottom side
 		bottom_width = size[0] - (sides['bottomleft'].get_width() + sides['bottomright'].get_width())
 		scaled_bottom_surf = pygame.transform.scale(sides['bottom'],(bottom_width,sides['bottom'].get_height()))
-		image.blit(scaled_bottom_surf,(sides['topleft'].get_width(),size[1] - sides['bottom'].get_height()))
+		image.blit(scaled_bottom_surf,(sides['bottomleft'].get_width(),size[1] - sides['bottom'].get_height()))
 		
 		# center color
 		center_height = size[1] - (sides['top'].get_height() + sides['bottom'].get_height())

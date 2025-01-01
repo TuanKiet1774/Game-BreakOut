@@ -2,7 +2,7 @@ import pygame, sys, time
 from settings import *
 from sprites import Player, Ball, Block, Upgrade, Projectile
 from surfacemaker import SurfaceMaker
-from random import choice, randint
+from random import choice
 
 class Game:
     def __init__(self):
@@ -19,9 +19,7 @@ class Game:
         read = file.readlines()
         self.highscore = int(read[0])
         self.reset_game()
-  
-    
-      
+       
     def reset_game(self):
         self.all_sprites.empty()
         self.block_sprites.empty()
@@ -45,8 +43,6 @@ class Game:
         self.music = pygame.mixer.Sound('./sounds/music.wav')
         self.music.set_volume(0.1)
         self.music.play(loops=-1)
-    
-    
 
     def create_upgrade(self, pos):
         upgrade_type = choice(UPGRADES)
@@ -68,7 +64,6 @@ class Game:
                     y = TOP_OFFSET + row_index * (BLOCK_HEIGHT + GAP_SIZE) + GAP_SIZE // 2 + 5
                     Block(col, (x, y), [self.all_sprites, self.block_sprites], self.surfacemaker, self.create_upgrade)
           
-
     def display_hearts(self):
         font = pygame.font.Font('Fonts/SVN-Determination Sans.otf', 20)
         text_surface = font.render("Your Life", True, (255, 255, 255))
@@ -76,18 +71,22 @@ class Game:
         for i in range(self.player.hearts):
             x = (text_surface.get_width() + 10) + i * (self.heart_surf.get_width() + 2)
             self.display_surface.blit(self.heart_surf, (x, 4))
+    
     def display_level(self):
         font = pygame.font.Font('Fonts/SVN-Determination Sans.otf', 20)
         text_surface2 = font.render(f"LV {self.ball.level}", True, (255, 255, 255))
         self.display_surface.blit(text_surface2, (322, 0))
+    
     def display_score(self):
         font = pygame.font.Font('Fonts/SVN-Determination Sans.otf', 20)
         text_surface3 = font.render(f"Score: {self.ball.score}", True, (255, 255, 255))
         self.display_surface.blit(text_surface3, (644, 0))
+    
     def display_highscore(self):
         font = pygame.font.Font('Fonts/SVN-Determination Sans.otf', 20)
         text_surface3 = font.render(f"HighScore: {self.highscore}", True, (255, 255, 255))
         self.display_surface.blit(text_surface3, (966, 0))
+    
     def upgrade_collision(self):
         overlap_sprites = pygame.sprite.spritecollide(self.player, self.upgrade_sprites, True)
         for sprite in overlap_sprites:
@@ -115,6 +114,7 @@ class Game:
                     self.ball.score +=1
                 projectile.kill()
                 self.laserhit_sound.play()
+    
     def check_highscore(self):
         if self.ball.score > self.highscore:
             self.file = open('highscore.txt', 'w')
@@ -122,9 +122,9 @@ class Game:
             self.file.write(self.write_score)
             self.file.close()
             self.highscore = self.ball.score 
+    
     def game_over_screen(self):
         self.music.stop()
-        
         overlay = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
         overlay.set_alpha(150)  # Độ trong suốt của nền (0 là trong suốt hoàn toàn, 255 là không trong suốt)
         overlay.fill((0, 0, 0))  # Màu nền (đen)
@@ -175,7 +175,13 @@ class Game:
                             self.create_projectile()
                             self.can_shoot = False
                             self.shoot_time = pygame.time.get_ticks()
-
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:  
+                        self.ball.active = True
+                        if self.can_shoot:
+                            self.create_projectile()
+                            self.can_shoot = False
+                            self.shoot_time = pygame.time.get_ticks()
             if self.player.hearts <= 0 or len(self.block_sprites) == 0:       
                 self.check_highscore()
                 self.game_over_screen()

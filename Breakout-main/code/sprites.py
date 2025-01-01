@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 from settings import *
 from random import choice, randint
 
@@ -50,23 +50,37 @@ class Player(pygame.sprite.Sprite):
 		self.direction = pygame.math.Vector2()
 		self.pos = pygame.math.Vector2(self.rect.topleft)
 		self.speed = 400
-
+		self.use_mouse_input = False
+		self.last_input_time = time.time()
 		self.hearts = 3
 
 		# laser
 		self.laser_amount = 0
 		self.laser_surf = pygame.image.load('./graphics/other/laser.png').convert_alpha()
-  
 		self.laser_rects = []
 
 	def input(self):
-		keys = pygame.key.get_pressed()
-		if keys[pygame.K_RIGHT]:
-			self.direction.x = 1
-		elif keys[pygame.K_LEFT]:
-			self.direction.x = -1
-		else:
-			self.direction.x = 0
+			keys = pygame.key.get_pressed()  
+			if pygame.mouse.get_pressed()[2]:  # Right-click
+				current_time = time.time()
+				if current_time - self.last_input_time > 0.3:  
+					self.use_mouse_input = not self.use_mouse_input
+					self.last_input_time = current_time
+			if self.use_mouse_input:
+				mouse_x, mouse_y = pygame.mouse.get_pos()
+				if mouse_x > self.rect.centerx:  # Mouse is to the right of the object
+					self.direction.x = 1
+				elif mouse_x < self.rect.centerx:  # Mouse is to the left of the object
+					self.direction.x = -1
+				else:
+					self.direction.x = 0
+			else:
+				if keys[pygame.K_RIGHT]:
+					self.direction.x = 1
+				elif keys[pygame.K_LEFT]:
+					self.direction.x = -1
+				else:
+					self.direction.x = 0
 
 	def screen_constraint(self):
 		if self.rect.right > WINDOW_WIDTH:
@@ -245,8 +259,7 @@ class Ball(pygame.sprite.Sprite):
 		else:
 			self.rect.midbottom = self.player.rect.midtop
 			self.pos = pygame.math.Vector2(self.rect.topleft)
-		
-				
+					
 class Block(pygame.sprite.Sprite):
 	def __init__(self,block_type,pos,groups,surfacemaker,create_upgrade):
 		super().__init__(groups)
