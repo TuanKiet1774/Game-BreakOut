@@ -27,10 +27,10 @@ class SurfaceMaker:
 		image.blit(sides['topright'],(size[0] - sides['topright'].get_width(),0))
 		image.blit(sides['bottomleft'],(0,size[1] - sides['bottomleft'].get_height()))
 		image.blit(sides['bottomright'],(size[0] - sides['bottomright'].get_width(),size[1] - sides['bottomleft'].get_height()))
-
+		
 		# top side 
 		top_width = size[0] - (sides['topleft'].get_width() + sides['topright'].get_width())
-		scaled_top_surf = pygame.transform.scale(sides['top'],(top_width,sides['top'].get_height()))
+		scaled_top_surf = pygame.transform.scale(sides['top'],(top_width,sides['top'].get_height())) #thay đổi kích thước bề mặt 'top' với (dài, cao)
 		image.blit(scaled_top_surf,(sides['topleft'].get_width(),0))
 
 		# left side

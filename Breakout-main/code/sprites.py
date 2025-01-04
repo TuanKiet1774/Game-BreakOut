@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
 		self.image = surfacemaker.get_surf('player',(WINDOW_WIDTH // 10,WINDOW_HEIGHT // 20))
 
 		# position
-		self.rect = self.image.get_rect(midbottom = (WINDOW_WIDTH // 2,WINDOW_HEIGHT - 20))
+		self.rect = self.image.get_rect(midbottom = (WINDOW_WIDTH // 2,WINDOW_HEIGHT-20))
 		self.old_rect = self.rect.copy()
 		self.direction = pygame.math.Vector2()
 		self.pos = pygame.math.Vector2(self.rect.topleft)
@@ -105,6 +105,8 @@ class Player(pygame.sprite.Sprite):
 
 		if upgrade_type == 'laser':
 			self.laser_amount += 1
+			if self.laser_amount >= 3:
+				self.laser_amount = 3
 
 	def display_lasers(self):
 		self.laser_rects = []
@@ -154,7 +156,6 @@ class Ball(pygame.sprite.Sprite):
 		self.active = False
 
 		# sounds
-
 		self.impact_sound = pygame.mixer.Sound('./sounds/impact.wav')
 		self.impact_sound.set_volume(0.1)
 

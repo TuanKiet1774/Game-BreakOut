@@ -102,7 +102,7 @@ class Game:
                 [self.all_sprites, self.projectile_sprites])
 
     def laser_timer(self):
-        if pygame.time.get_ticks() - self.shoot_time >= 500:
+        if pygame.time.get_ticks() - self.shoot_time >= 2000:
             self.can_shoot = True
 
     def projectile_block_collision(self):

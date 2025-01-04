@@ -6,8 +6,8 @@ WINDOW_HEIGHT = 720
 def generate_block_map():
     block_map = []
     num_random_rows=5
-    total_rows=9
-    length=12
+    total_rows=9 #len(BLOCK_MAP)
+    length=12 #len(BLOCK_MAP[0])
     # Tạo các chuỗi ngẫu nhiên
     for _ in range(num_random_rows):
         random_string = ''.join(random.choice('1234567') for _ in range(length))
@@ -26,6 +26,5 @@ COLOR_LEGEND = {'1': 'blue', '2': 'green', '3': 'red',	'4': 'orange', '5': 'purp
 GAP_SIZE = 2
 BLOCK_HEIGHT = WINDOW_HEIGHT / len(BLOCK_MAP) - GAP_SIZE
 BLOCK_WIDTH = WINDOW_WIDTH / len(BLOCK_MAP[0]) - GAP_SIZE
-TOP_OFFSET = WINDOW_HEIGHT // 30
-
+TOP_OFFSET = WINDOW_HEIGHT // 30 #24
 UPGRADES = ['speed','laser','heart','size']
