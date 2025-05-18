@@ -33,7 +33,12 @@ Mở VS Code, tìm và cài đặt extension **Python** của Microsoft.
 
 ---
 
-### 4. Cài đặt thư viện Pygame  
+### 4. Cài đặt thư viện Pygame
+
+Pygame là một thư viện Python rất phổ biến để phát triển game 2D, cung cấp các công cụ để xử lý đồ họa, âm thanh, và tương tác người dùng một cách dễ dàng.
+
+![Pygame](https://github.com/user-attachments/assets/4c1f1e16-891d-4973-bdd1-852b23e8d50f)
+
 Mở terminal hoặc Command Prompt và chạy lệnh:  **pip install pygame**
 
 ---
@@ -63,10 +68,12 @@ Tải project về máy và giải nén file ZIP.
 - Tìm file `main.py` trong thư mục project.
 - Chạy file này bằng cách nhấn **Run** hoặc mở terminal và chạy câu lệnh: **python main.py**
 
+![Minh họa chạy Project](https://github.com/user-attachments/assets/8d51568e-a23f-428b-8957-8483fdbabb29)
+
 ### Bước 4: Chạy project trên CMD
 
 - Ví dụ Project được lưu ở ổ đĩa D, thư mục Python : `D:\Python\Breakout-main`
-![image](https://github.com/user-attachments/assets/8d51568e-a23f-428b-8957-8483fdbabb29)
+![Minh họa chạy trên CMD](https://github.com/user-attachments/assets/8d51568e-a23f-428b-8957-8483fdbabb29)
 
 ### 🎮 6. Mô tả cách chơi
 
